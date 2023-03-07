@@ -6,9 +6,8 @@ Creates a shallow copy of a Git repository by committing almost nothing.
 
 In 2021, GitHub released Copilot, which has been considered a
 breakthrough in AI-assisted programming. For the first time in history,
-even ~~hollow amoeba~~ incompetent programmers could produce something
-resembling functional code. Something that a compiler would happily
-accept!
+*anyone* could produce something resembling functional code. Something
+that a compiler would happily accept!
 
 The system has been trained on publicly-available repositories (such as
 mine) without any financial compensation, and ignoring any copyright
@@ -25,10 +24,6 @@ GitHub is like moving into a forest cabin: you become invisible.
 
 This script takes care of that. It essentially mirrors *all of the
 activity*, but *none of the code*.
-
-To [Nat][nat]: go fuck yourself.
-
-[nat]: https://web.archive.org/web/20210630043243/https://twitter.com/natfriedman/status/1409914420579344385
 
 ## Usage
 
