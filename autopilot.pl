@@ -236,8 +236,6 @@ sub main {
   # Fetch mock commits
   my $last_mock_commit = read_last_commit($conf->{mock_repo});
 
-    use DDP;
-
   my @pending_commits;
   if ($last_mock_commit) {
     @pending_commits = find_pending_commits(\@local_commits,
