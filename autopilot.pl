@@ -173,7 +173,7 @@ sub mock_commit($$$) {
                 'add', 'README.md') == 0 or die "could not add README.md to commit";
 
   # prepare the commit message
-  my $commit_message = "a boring commit message [$commit->[0]]";
+  my $commit_message = "[$commit->[0]] $commit->[2]";
 
   # do that commit!
   system(git => '-C', $repo_dn,
