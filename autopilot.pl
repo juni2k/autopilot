@@ -176,6 +176,7 @@ sub mock_commit($$$) {
   my $commit_message = "[$commit->[0]] $commit->[2]";
 
   # do that commit!
+  $ENV{GIT_COMMITTER_DATE} = $commit->[1];
   system(git => '-C', $repo_dn,
                 'commit',
                 '-m', $commit_message,
