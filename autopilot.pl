@@ -1,10 +1,11 @@
-# (c) 2023 Martin Frederic
+# (c) 2023-2026 Martin Frederic
 
 use strict;
 use warnings;
 
 use v5.18;
 
+use File::Path qw{remove_tree};
 use File::Spec::Functions qw{catdir catfile};
 use IPC::Open3 qw{open3};
 use Symbol qw{gensym};
@@ -68,8 +69,10 @@ sub init_mock_repo($$$) {
 
   if (-e -d $git_dir) {
     # This repo has already been initialized.
-    print "repo already exists\n";
-    return;
+    print "repo already exists, removing first\n";
+    print "[-- start of remove log --]\n";
+    remove_tree($dn, {verbose => 1});
+    print "[-- end of remove log --]\n";
   }
 
   if (!(-e -d $dn)) {
