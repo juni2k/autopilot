@@ -59,10 +59,11 @@ sub read_config($) {
   return \%conf;
 }
 
-sub init_mock_repo($$$) {
-  my $dn        = shift;
-  my $git_name  = shift;
-  my $git_email = shift;
+sub init_mock_repo($$$$) {
+  my $dn          = shift;
+  my $git_name    = shift;
+  my $git_email   = shift;
+  my $mock_remote = shift;
 
   my $git_dir = catdir($dn, '.git');
   print "init mock repo: $dn ($git_dir)\n";
@@ -91,6 +92,11 @@ sub init_mock_repo($$$) {
   system(git => '-C', $dn,
                 'config', 'user.email',
                 $git_email);
+  system(git => '-C', $dn,
+                'branch', '-m', 'master');
+  system(git => '-C', $dn,
+                'remote', 'add', 'origin',
+                $mock_remote);
 }
 
 sub read_commits($;$) {
@@ -221,6 +227,14 @@ sub find_pending_commits($$) {
   return @pending;
 }
 
+sub force_push($) {
+  my $repo_dn = shift;
+
+  system(git => '-C', $repo_dn,
+                'push', '--force',
+                'origin', 'master');
+}
+
 sub main {
   if (!@ARGV) {
     die "Needs path to repo config.\n";
@@ -232,7 +246,8 @@ sub main {
   my $ok;
 
   init_mock_repo($conf->{mock_repo},
-                  $conf->{git_name}, $conf->{git_email});
+                  $conf->{git_name}, $conf->{git_email},
+                  $conf->{github_repo});
 
   # Fetch local commits
   my @local_commits = read_commits($conf->{local_repo});
@@ -258,6 +273,9 @@ sub main {
   for my $commit (@pending_commits) {
     mock_commit($conf->{mock_repo}, $conf->{readme_template}, $commit);
   }
+
+  # Push it to the limit
+  force_push($conf->{mock_repo});
 
   # TODO: maybe use random phrases
 }

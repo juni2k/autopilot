@@ -57,10 +57,6 @@ to create a diff from.
 
 Then, run: `perl autopilot.pl example.conf`.
 
-## Todo
-
-- automatically push the commits to GitHub
-
 ## License
 
 lmao
